@@ -1,0 +1,65 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+
+<xs:element name="purchaseOrder">
+  <xs:complexType>
+    <xs:all>
+    <xs:element ref="shipTo" maxOccurs="1"/>
+    <xs:element ref="billTo" maxOccurs="1"/>
+    <xs:element name="comment" type="xs:string" maxOccurs="1"/>
+    <xs:element ref="items" maxOccurs="1"/>
+    </xs:all>
+    <xs:attribute name="orderDate" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="shipTo">
+<xs:complexType>
+    <xs:group ref="info"></xs:group>
+    <xs:attribute name="country" type="xs:string" default="US"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="billTo">
+<xs:complexType>
+    <xs:group ref="info"></xs:group>
+    <xs:attribute name="country" type="xs:string" default="US"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="items">
+<xs:complexType>
+    <xs:sequence>
+    <xs:element ref="item" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="orderDate" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="item">
+<xs:complexType>
+<xs:group ref="itemGroup"/>
+<xs:attribute name="partNum" type="xs:string"></xs:attribute>
+</xs:complexType>
+</xs:element>
+
+ <xs:group name="itemGroup">
+  <xs:sequence>
+    <xs:element name="productName" type="xs:string"/>
+    <xs:element name="quantity" type="xs:integer"/>
+    <xs:element name="USPrice" type="xs:decimal"/>
+    <xs:element name="comment" type="xs:string"/>   
+  </xs:sequence>
+</xs:group>
+
+<xs:group name="info">
+  <xs:sequence>
+      <xs:element name="name" type="xs:string" maxOccurs="1" minOccurs="1"/> 
+      <xs:element name="street" type="xs:string" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="city" type="xs:string" maxOccurs="1" minOccurs="1"/>
+      <xs:element name="state" type="xs:string"/>
+      <xs:element name="zip" type="xs:integer"/>
+    </xs:sequence>
+</xs:group>
+
+</xs:schema>
